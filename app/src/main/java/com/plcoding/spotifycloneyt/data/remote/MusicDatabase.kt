@@ -10,10 +10,10 @@ class MusicDatabase {
     private val firestore = FirebaseFirestore.getInstance()
     private val songCollection = firestore.collection(SONG_COLLECTION)
 
-    suspend fun getAllSOng(): List<Song>{
+    suspend fun getAllSong(): List<Song>{
         return try {
             // await make the get function a suspend function, so will be executed
-            // in a corotine. Await will get us an object of type any
+            // in a coroutine. Await will get us an object of type any
             songCollection.get().await().toObjects(Song::class.java)
         } catch (e: Exception){
             emptyList()
