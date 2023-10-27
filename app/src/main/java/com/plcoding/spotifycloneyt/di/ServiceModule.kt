@@ -14,10 +14,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ServiceScoped
 
 @Module
-@InstallIn(ServiceComponent::class)
+@InstallIn(ServiceComponent::class) // only for music service lifetime
 object ServiceModule {
 
-    @ServiceScoped
+    @ServiceScoped // equivalent to Singleton for ServiceComponent, because we only use it in service
     @Provides
     fun provideAudioAttributes() = AudioAttributes.Builder()
         .setContentType(C.CONTENT_TYPE_MUSIC)

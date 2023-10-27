@@ -13,7 +13,7 @@ import javax.inject.Singleton
 import com.plcoding.spotifycloneyt.R
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ApplicationComponent::class) // init once in singleton for whole application lifetime
 object AppModule {
 
     @Singleton
