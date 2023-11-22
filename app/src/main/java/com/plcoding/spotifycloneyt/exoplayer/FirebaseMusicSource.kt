@@ -1,5 +1,8 @@
 package com.plcoding.spotifycloneyt.exoplayer
 
+import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaBrowserCompat.MediaItem.FLAG_BROWSABLE
+import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.MediaMetadataCompat.*
 import android.support.v4.media.session.MediaSessionCompat
@@ -48,7 +51,16 @@ class FirebaseMusicSource @Inject constructor(
         return concatenatingMediaSource
     }
 
-    
+    fun asMediaItems() = songs.map { song ->
+        val desc = MediaDescriptionCompat.Builder()
+            .setMediaUri(song.getString(METADATA_KEY_MEDIA_URI).toUri())
+            .setTitle(song.description.title)
+            .setSubtitle(song.description.subtitle)
+            .setMediaId(song.description.mediaId)
+            .setIconUri(song.description.iconUri)
+            .build()
+        MediaBrowserCompat.MediaItem(desc, FLAG_BROWSABLE)
+    }
 
     private val onReadyListeners = mutableListOf<(Boolean) -> Unit>()
 
